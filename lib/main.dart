@@ -118,85 +118,94 @@ class _MainPageState extends State<MainPage> {
             Expanded(
               child: ListView(
                 children: [
-                  ListTile(
+                  AppDrawerTile(
+                    index: 0,
                     onTap: () {
                       setState(() {
                         indexClicked = 0;
                       });
                       Navigator.pop(context);
                     },
-                    leading: Icon(
-                      Defaults.drawerItemIcon[0],
-                      size: 30,
-                      color: indexClicked == 0
-                          ? Defaults.drawerItemSelectedColor
-                          : Defaults.drawerItemColor,
-                    ),
-                    title: Text(
-                      Defaults.drawerItemText[0],
-                      style: GoogleFonts.poppins(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: indexClicked == 0
-                            ? Defaults.drawerItemSelectedColor
-                            : Defaults.drawerItemColor,
-                      ),
-                    ),
                   ),
-                  ListTile(
-                    onTap: () {
-                      setState(() {
-                        indexClicked = 1;
-                      });
-                      Navigator.pop(context);
-                    },
-                    leading: Icon(
-                      Defaults.drawerItemIcon[1],
-                      size: 30,
-                      color: indexClicked == 1
-                          ? Defaults.drawerItemSelectedColor
-                          : Defaults.drawerItemColor,
-                    ),
-                    title: Text(
-                      Defaults.drawerItemText[1],
-                      style: GoogleFonts.poppins(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: indexClicked == 1
-                            ? Defaults.drawerItemSelectedColor
-                            : Defaults.drawerItemColor,
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    onTap: () {
-                      setState(() {
-                        indexClicked = 2;
-                      });
-                      Navigator.pop(context);
-                    },
-                    leading: Icon(
-                      Defaults.drawerItemIcon[2],
-                      size: 30,
-                      color: indexClicked == 2
-                          ? Defaults.drawerItemSelectedColor
-                          : Defaults.drawerItemColor,
-                    ),
-                    title: Text(
-                      Defaults.drawerItemText[2],
-                      style: GoogleFonts.poppins(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: indexClicked == 2
-                            ? Defaults.drawerItemSelectedColor
-                            : Defaults.drawerItemColor,
-                      ),
-                    ),
-                  ),
+                  AppDrawerTile(
+                      index: 1,
+                      onTap: () {
+                        setState(() {
+                          indexClicked = 1;
+                        });
+                        Navigator.pop(context);
+                      }),
+                  AppDrawerTile(
+                      index: 2,
+                      onTap: () {
+                        setState(() {
+                          indexClicked = 2;
+                        });
+                        Navigator.pop(context);
+                      }),
+                  AppDrawerTile(
+                      index: 3,
+                      onTap: () {
+                        setState(() {
+                          indexClicked = 3;
+                        });
+                        Navigator.pop(context);
+                      }),
+                  AppDrawerTile(
+                      index: 4,
+                      onTap: () {
+                        setState(() {
+                          indexClicked = 4;
+                        });
+                        Navigator.pop(context);
+                      }),
+                  AppDrawerTile(
+                      index: 5,
+                      onTap: () {
+                        setState(() {
+                          indexClicked = 5;
+                        });
+                        Navigator.pop(context);
+                      }),
                 ],
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class AppDrawerTile extends StatelessWidget {
+  const AppDrawerTile({
+    Key? key,
+    required this.index,
+    required this.onTap,
+  }) : super(key: key);
+
+  final int index;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: onTap,
+      leading: Icon(
+        Defaults.drawerItemIcon[index],
+        size: 30,
+        color: indexClicked == index
+            ? Defaults.drawerItemSelectedColor
+            : Defaults.drawerItemColor,
+      ),
+      title: Text(
+        Defaults.drawerItemText[index],
+        style: GoogleFonts.poppins(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: indexClicked == index
+              ? Defaults.drawerItemSelectedColor
+              : Defaults.drawerItemColor,
         ),
       ),
     );
