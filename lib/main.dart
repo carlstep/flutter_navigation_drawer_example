@@ -24,37 +24,47 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final pages = [
-    Center(
+    const Center(
       child: Text(
         'Inbox',
       ),
     ),
-    Center(
+    const Center(
       child: Text(
         'Starred',
       ),
     ),
-    Center(
+    const Center(
       child: Text(
         'Sent',
       ),
     ),
-    Center(
+    const Center(
       child: Text(
         'Drafts',
       ),
     ),
-    Center(
+    const Center(
       child: Text(
         'Trash',
       ),
     ),
-    Center(
+    const Center(
       child: Text(
         'Spam',
       ),
     ),
   ];
+
+  VoidCallback updateState(int index) {
+    return () {
+      setState(() {
+        indexClicked = index;
+      });
+      Navigator.pop(context);
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,41 +88,37 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
               padding: EdgeInsets.zero,
-              child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundImage: AssetImage(
-                        'assets/images/profile.jpg',
-                      ),
+              margin: EdgeInsets.zero,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                //crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const CircleAvatar(
+                    radius: 50,
+                    backgroundImage: AssetImage(
+                      'assets/images/profile.jpg',
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'John Rambo',
-                          style: GoogleFonts.poppins(
-                            fontSize: 20,
-                            color: Colors.grey[300],
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          'john@rambo.com',
-                          style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            color: Colors.grey[300],
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
+                  ),
+                  Text(
+                    'John Rambo',
+                    style: GoogleFonts.poppins(
+                      fontSize: 20,
+                      color: Colors.grey[300],
+                      fontWeight: FontWeight.w500,
                     ),
-                  ],
-                ),
+                  ),
+                  Text(
+                    'john@rambo.com',
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      color: Colors.grey[300],
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
               ),
             ),
             Expanded(
@@ -120,59 +126,84 @@ class _MainPageState extends State<MainPage> {
                 children: [
                   AppDrawerTile(
                     index: 0,
-                    onTap: () {
-                      setState(() {
-                        indexClicked = 0;
-                      });
-                      Navigator.pop(context);
-                    },
+                    onTap: updateState(0),
                   ),
                   AppDrawerTile(
-                      index: 1,
-                      onTap: () {
-                        setState(() {
-                          indexClicked = 1;
-                        });
-                        Navigator.pop(context);
-                      }),
+                    index: 1,
+                    onTap: updateState(1),
+                  ),
                   AppDrawerTile(
-                      index: 2,
-                      onTap: () {
-                        setState(() {
-                          indexClicked = 2;
-                        });
-                        Navigator.pop(context);
-                      }),
+                    index: 2,
+                    onTap: updateState(2),
+                  ),
                   AppDrawerTile(
-                      index: 3,
-                      onTap: () {
-                        setState(() {
-                          indexClicked = 3;
-                        });
-                        Navigator.pop(context);
-                      }),
+                    index: 3,
+                    onTap: updateState(3),
+                  ),
                   AppDrawerTile(
-                      index: 4,
-                      onTap: () {
-                        setState(() {
-                          indexClicked = 4;
-                        });
-                        Navigator.pop(context);
-                      }),
+                    index: 4,
+                    onTap: updateState(4),
+                  ),
                   AppDrawerTile(
-                      index: 5,
-                      onTap: () {
-                        setState(() {
-                          indexClicked = 5;
-                        });
-                        Navigator.pop(context);
-                      }),
+                    index: 5,
+                    onTap: updateState(5),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  const DividerStyle(),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'JetMail',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: Defaults.drawerItemSelectedColor,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    'version 1.3.4',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w200,
+                      color: Defaults.drawerItemColor,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  const DividerStyle(),
                 ],
               ),
             ),
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(items: []),
+    );
+  }
+}
+
+class DividerStyle extends StatelessWidget {
+  const DividerStyle({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Divider(
+      height: 1,
+      thickness: 1,
+      color: Defaults.drawerItemColor,
+      indent: 10,
+      endIndent: 10,
     );
   }
 }
@@ -189,23 +220,28 @@ class AppDrawerTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: onTap,
-      leading: Icon(
-        Defaults.drawerItemIcon[index],
-        size: 30,
-        color: indexClicked == index
-            ? Defaults.drawerItemSelectedColor
-            : Defaults.drawerItemColor,
-      ),
-      title: Text(
-        Defaults.drawerItemText[index],
-        style: GoogleFonts.poppins(
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: ListTile(
+        onTap: onTap,
+        selected: indexClicked == index,
+        selectedTileColor: Defaults.drawerSelectedTileColor,
+        leading: Icon(
+          Defaults.drawerItemIcon[index],
+          size: 30,
           color: indexClicked == index
               ? Defaults.drawerItemSelectedColor
               : Defaults.drawerItemColor,
+        ),
+        title: Text(
+          Defaults.drawerItemText[index],
+          style: GoogleFonts.poppins(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: indexClicked == index
+                ? Defaults.drawerItemSelectedColor
+                : Defaults.drawerItemColor,
+          ),
         ),
       ),
     );
